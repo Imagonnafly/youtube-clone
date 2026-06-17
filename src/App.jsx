@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import VideoDetail from './pages/VideoDetail';
 import SearchFeed from './pages/SearchFeed';
 
+// Navbar Component
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     e.preventDefault();
     if (searchTerm) {
       navigate(`/search/${searchTerm}`);
-      setSearchTerm(''); // Clear after search
+      setSearchTerm('');
     }
   };
 
@@ -55,10 +56,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   );
 };
 
+// Main App Component
 function App() {
   const [darkMode, setDarkMode] = useState(true);
 
-  // THE FIX: This forces the actual <body> tag to accept the theme, preventing the half-page bug!
+  // Fixes the body background color by applying the class directly to the body element
   useEffect(() => {
     if (darkMode) {
       document.body.classList.add('dark-theme');
@@ -68,7 +70,7 @@ function App() {
   }, [darkMode]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-main)' }}>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
@@ -77,7 +79,7 @@ function App() {
           <Route path="/search/:searchTerm" element={<SearchFeed />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
